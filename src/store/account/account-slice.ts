@@ -8,6 +8,7 @@ const initialAccountState: AccountSliceInterface = {
   name: 'Anonymous',
   email: '',
   accessToken: StoreAccessToken.get(),
+  isLoading: false,
 };
 
 const accountSlice = createSlice({
@@ -24,7 +25,7 @@ const accountSlice = createSlice({
     accountCleanup: (state) => {
       state.id = null;
       state.name = 'Anonymous';
-      state.email = '';
+      state.email = null;
       state.accessToken = null;
       StoreAccessToken.clean();
     }
@@ -44,16 +45,21 @@ const accountSlice = createSlice({
     });
 
     // Load Account Data
+    builder.addCase(loadAccountData.pending, (state) => {
+      state.isLoading = true;
+    });
     builder.addCase(loadAccountData.fulfilled, (state, { payload }) => {
       state.id = payload.id;
       state.name = payload.name;
       state.email = payload.email;
+      state.isLoading = false;
     });
     builder.addCase(loadAccountData.rejected, (state) => {
       state.id = null;
       state.name = 'Anonymous';
       state.email = '';
       state.accessToken = '';
+      state.isLoading = false;
       StoreAccessToken.clean();
     });
   }

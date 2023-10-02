@@ -14,7 +14,8 @@ const StoreAccessToken = {
   },
   get: (): string|null => {
     if (localStorageIsAvailable) {
-      return localStorage.getItem('access_token') || null;
+      // TODO: Get rid of the fake token
+      return localStorage.getItem('access_token') || 'Test access token';
     }
     return null;
   }

@@ -1,7 +1,5 @@
+import AccountInterface from "@/type/account/AccountInterface";
 
-export default interface AccountSliceInterface {
-  id: number|null,
-  name: string,
-  email: string,
-  accessToken: string|null,
+export default interface AccountSliceInterface extends AccountInterface{
+
 }

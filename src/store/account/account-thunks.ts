@@ -42,16 +42,31 @@ export const loadAccountData = createAsyncThunk<
   "account/loadAccountData",
   async (_, { rejectWithValue }) => {
     try {
-      const accountResponse = await API.get('/api/account');
+      console.log('Loading fake user');
 
-      const accountData: {
-        id: number,
-        name: string,
-        email: string,
-      } = accountResponse.data;
-      return {
-        ...accountData,
-      }
+      await new Promise((handleSuccess) => {
+        setTimeout(() => {
+          handleSuccess(true);
+        }, 2000);
+      });
+
+      return  {
+        id: 1,
+        name: 'Marat Minnullin',
+        email: 'maratkagyu@gmail.com',
+      };
+      // TODO: Load real account data
+      //
+      // const accountResponse = await API.get('/api/account');
+      //
+      // const accountData: {
+      //   id: number,
+      //   name: string,
+      //   email: string,
+      // } = accountResponse.data;
+      // return {
+      //   ...accountData,
+      // }
     } catch (err) {
       const error = err as AxiosError;
       if (!error.response) {
